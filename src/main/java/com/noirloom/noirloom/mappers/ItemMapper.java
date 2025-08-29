@@ -1,11 +1,11 @@
 package com.noirloom.noirloom.mappers;
 
-import com.noirloom.noirloom.DTOs.ItemDTO;
+import com.noirloom.noirloom.DTOs.ItemDto;
 import com.noirloom.noirloom.models.ItemModel;
 
 public class ItemMapper {
-    public static ItemDTO mapToItemDTO(ItemModel item) {
-        return new ItemDTO(
+    public static ItemDto mapToItemDTO(ItemModel item) {
+        return new ItemDto(
                 item.getId(),
                 item.getName(),
                 item.getDescription(),
@@ -16,15 +16,15 @@ public class ItemMapper {
         );
     }
 
-    public static ItemModel mapToItemModel(ItemDTO itemDTO) {
+    public static ItemModel mapToItemModel(ItemDto itemDto) {
         return new ItemModel(
-                itemDTO.getId(),
-                itemDTO.getName(),
-                itemDTO.getDescription(),
-                itemDTO.getType(),
-                itemDTO.getSex(),
-                itemDTO.getCostPrice(),
-                itemDTO.getSellPrice()
+                itemDto.getId(),
+                itemDto.getName(),
+                itemDto.getDescription(),
+                itemDto.getType(),
+                itemDto.getSex(),
+                itemDto.getCostPrice(),
+                itemDto.getSellPrice()
         );
     }
 }

@@ -18,7 +18,7 @@ public class ItemModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="description", nullable = false)
+    @Column(name="name", nullable = false)
     private String name;
 
     @Column(name="description", nullable = true)

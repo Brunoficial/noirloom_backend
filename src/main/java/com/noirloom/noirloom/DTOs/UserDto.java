@@ -16,6 +16,6 @@ public class UserDto {
         private String password;
         private String nationality;
         private String gender;
-        private String userType;
+        private String role;
     }
 

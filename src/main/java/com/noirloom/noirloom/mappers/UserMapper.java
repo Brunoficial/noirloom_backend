@@ -12,7 +12,7 @@ public class UserMapper {
                 user.getPassword(),
                 user.getNationality(),
                 user.getGender(),
-                user.getUserType()
+                user.getRole()
         );
     }
 
@@ -24,7 +24,7 @@ public class UserMapper {
                 userDto.getPassword(),
                 userDto.getNationality(),
                 userDto.getGender(),
-                userDto.getUserType()
+                userDto.getRole()
         );
     }
 }

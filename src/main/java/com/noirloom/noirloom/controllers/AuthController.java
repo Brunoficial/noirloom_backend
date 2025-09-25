@@ -4,7 +4,9 @@ import com.noirloom.noirloom.DTOs.AuthDto;
 import com.noirloom.noirloom.DTOs.LoginResponseDto;
 import com.noirloom.noirloom.DTOs.RegisterDto;
 import com.noirloom.noirloom.infra.security.TokenService;
+import com.noirloom.noirloom.models.CartModel;
 import com.noirloom.noirloom.models.UserModel;
+import com.noirloom.noirloom.repositories.CartRepository;
 import com.noirloom.noirloom.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -26,6 +30,9 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
 
     @Autowired
     private TokenService tokenService;
@@ -51,6 +58,11 @@ public class AuthController {
         UserModel newUser = new UserModel(data.getName() ,data.getEmail(), encryptedPassword, data.getRole());
 
         this.userRepository.save(newUser);
+
+        CartModel newCart = new CartModel();
+        newCart.setUser(newUser);
+
+        this.cartRepository.save(newCart);
 
         return ResponseEntity.ok().build();
     }

@@ -44,10 +44,23 @@ public class UserModel implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
+    @OneToOne(mappedBy = "user")
+    private CartModel cart;
+
     public UserModel(String name, String email, String password, UserRole role) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
+    }
+
+    public UserModel(Long id, String name, String email, String password, String nationality, String gender, UserRole role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.nationality = nationality;
+        this.gender = gender;
         this.role = role;
     }
 

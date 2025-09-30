@@ -22,7 +22,6 @@ public class CartModel {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
     private UserModel user;
 
     @ManyToMany

@@ -8,6 +8,7 @@ import com.noirloom.noirloom.models.CartModel;
 import com.noirloom.noirloom.models.UserModel;
 import com.noirloom.noirloom.repositories.CartRepository;
 import com.noirloom.noirloom.repositories.UserRepository;
+import com.noirloom.noirloom.services.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,44 +27,15 @@ import java.util.List;
 public class AuthController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private CartRepository cartRepository;
-
-    @Autowired
-    private TokenService tokenService;
+    private AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity login (@RequestBody @Valid AuthDto data) {
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.getEmail(), data.getPassword());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
-
-
-        var token = tokenService.generateToken((UserModel) auth.getPrincipal());
-
-        return ResponseEntity.ok(new LoginResponseDto(token));
+        return authService.login(data);
     }
 
     @PostMapping("/register")
     public ResponseEntity register (@RequestBody @Valid RegisterDto data ) {
-        if (this.userRepository.findByEmail(data.getEmail()) != null) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.getPassword());
-        UserModel newUser = new UserModel(data.getName() ,data.getEmail(), encryptedPassword, data.getRole());
-
-        this.userRepository.save(newUser);
-
-        CartModel newCart = new CartModel();
-        newCart.setUser(newUser);
-
-        this.cartRepository.save(newCart);
-
-        return ResponseEntity.ok().build();
+        return authService.register(data);
     }
 }

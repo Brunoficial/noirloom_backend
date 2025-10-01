@@ -1,37 +1,39 @@
 package com.noirloom.noirloom.services;
 
 import com.noirloom.noirloom.models.CartModel;
+import com.noirloom.noirloom.models.FavoritesModel;
 import com.noirloom.noirloom.models.ItemModel;
 import com.noirloom.noirloom.repositories.CartRepository;
+import com.noirloom.noirloom.repositories.FavoritesRepository;
 import com.noirloom.noirloom.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CartService {
+public class FavoritesService {
 
     @Autowired
-    CartRepository cartRepository;
+    FavoritesRepository favoritesRepository;
 
     @Autowired
     ItemRepository itemRepository;
 
-    public ResponseEntity addItemToCart(Long userId, Long itemId) {
-        CartModel cart = (cartRepository.findByUserId(userId)).get();
+    public ResponseEntity addItemToFavorites(Long userId, Long itemId) {
+        FavoritesModel favorite = (favoritesRepository.findByUserId(userId)).get();
         ItemModel item = (itemRepository.findById(itemId)).get();
 
-        cart.getItems().add(item);
-        cartRepository.save(cart);
+        favorite.getItems().add(item);
+        favoritesRepository.save(favorite);
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity removeItemFromCart (Long userId, Long itemId) {
-        CartModel cart = (cartRepository.findByUserId(userId)).get();
+    public ResponseEntity removeItemFromFavorites (Long userId, Long itemId) {
+        FavoritesModel favorite = (favoritesRepository.findByUserId(userId)).get();
         ItemModel item = (itemRepository.findById(itemId)).get();
 
-        cart.getItems().remove(item);
-        cartRepository.save(cart);
+        favorite.getItems().remove(item);
+        favoritesRepository.save(favorite);
         return ResponseEntity.ok().build();
     }
 }

@@ -12,12 +12,6 @@ public class CartMapper {
     @Autowired
     private static UserRepository userRepository;
 
-    @Autowired
-    private static ItemRepository itemRepository;
-
-    @Autowired
-    private static ItemMapper itemMapper;
-
     public static CartDto mapToCartDTO(CartModel cart) {
         return new CartDto(
                 cart.getId(),

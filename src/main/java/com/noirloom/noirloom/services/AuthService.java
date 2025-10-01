@@ -3,6 +3,7 @@ package com.noirloom.noirloom.services;
 import com.noirloom.noirloom.DTOs.AuthDto;
 import com.noirloom.noirloom.DTOs.LoginResponseDto;
 import com.noirloom.noirloom.DTOs.RegisterDto;
+import com.noirloom.noirloom.Utils;
 import com.noirloom.noirloom.infra.security.TokenService;
 import com.noirloom.noirloom.models.CartModel;
 import com.noirloom.noirloom.models.UserModel;
@@ -37,6 +38,9 @@ public class AuthService {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private Utils utils;
+
     public ResponseEntity register(RegisterDto data) {
         if (this.userRepository.findByEmail(data.getEmail()) != null) {
             return ResponseEntity.badRequest().build();
@@ -46,11 +50,7 @@ public class AuthService {
         UserModel newUser = new UserModel(data.getName() ,data.getEmail(), encryptedPassword, data.getRole());
 
         this.userRepository.save(newUser);
-
-        CartModel newCart = new CartModel();
-        newCart.setUser(newUser);
-
-        this.cartRepository.save(newCart);
+        utils.createUserOrphans(newUser);
 
         return ResponseEntity.ok().build();
     }

@@ -13,10 +13,10 @@ public class FavoritesController {
     FavoritesService favoritesService;
 
     @PostMapping("/addItem/{userId}/{itemId}")
-    public ResponseEntity addItemToFavorites(@PathVariable Long userId, @PathVariable Long ItemId) { return favoritesService.addItemToFavorites(userId, ItemId);
+        public ResponseEntity addItemToFavorites(@PathVariable Long userId, @PathVariable Long itemId) { return favoritesService.addItemToFavorites(userId, itemId);
     }
 
     @DeleteMapping("removeItem/{userId}/{itemId}")
-    public ResponseEntity removeItemFromFavorites(@PathVariable Long userId, @PathVariable Long itemId) { return favoritesService.removeItemFromFavorites(userId, itemId);
+        public ResponseEntity removeItemFromFavorites(@PathVariable Long userId, @PathVariable Long itemId) { return favoritesService.removeItemFromFavorites(userId, itemId);
     }
 }

@@ -25,6 +25,7 @@ public class FavoritesService {
 
         favorite.getItems().add(item);
         favoritesRepository.save(favorite);
+
         return ResponseEntity.ok().build();
     }
 

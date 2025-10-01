@@ -44,8 +44,11 @@ public class UserModel implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private CartModel cart;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private FavoritesModel favorites_list;
 
     public UserModel(String name, String email, String password, UserRole role) {
         this.name = name;

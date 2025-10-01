@@ -24,10 +24,11 @@ public class CartModel {
     @OneToOne
     private UserModel user;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(
             name = "cart_items",
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<ItemModel> items;
+
 }
